@@ -1,0 +1,16 @@
+# Render blueprint: New + > Blueprint, point it at this repo.
+services:
+  - type: web
+    name: weather-aware-truck-routing
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_BEHIND_PROXY
+        value: "true"
+      - key: API_NUM_PROXIES
+        value: "1"
+      - key: PROVIDERS
+        value: live
