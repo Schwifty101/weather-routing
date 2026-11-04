@@ -24,6 +24,9 @@ interface Props {
 }
 
 const US_CENTER: [number, number] = [39.5, -98.35];
+const CARTO_TILES = `https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png${
+  import.meta.env.VITE_CARTO_API_KEY ? `?key=${encodeURIComponent(import.meta.env.VITE_CARTO_API_KEY)}` : ""
+}`;
 
 function FitToPlan({ plan }: { plan: PlanResponse | null }) {
   const map = useMap();
@@ -110,9 +113,8 @@ function MapViewInner({ plan, selectedId, onSelect, heat, heatVisible, heatRef, 
   return (
     <MapContainer center={US_CENTER} zoom={4} preferCanvas className="map" zoomControl worldCopyJump>
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        subdomains="abcd"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attribution/">CARTO</a>'
+        url={CARTO_TILES}
         maxZoom={19}
       />
       <HeatLayer ref={heatRef} data={heat} visible={heatVisible} />

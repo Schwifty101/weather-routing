@@ -117,6 +117,7 @@ Backend tests cover every threshold boundary and load rule, geometry helpers, ra
 One Docker image serves the API and the built UI (WhiteNoise), so hosting is a single service.
 
 * **Render:** *New → Blueprint* and select this repo. `render.yaml` is included; the secret key is generated for you. The health check is `/api/health`.
+* **CARTO map tiles:** Set `VITE_CARTO_API_KEY` in the Render service environment, then rebuild and deploy. The Docker build passes it to Vite; the key is included in browser tile requests, so restrict it to your site's domain in CARTO.
 * **Anything that runs Docker:** `docker build -t truck-routing . && docker run -p 8000:8000 -e DJANGO_SECRET_KEY=... truck-routing`. Add your hostname to `DJANGO_ALLOWED_HOSTS`.
 
 Free tiers sleep when idle, so the first request after a pause is slow.
